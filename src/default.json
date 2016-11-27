@@ -1,0 +1,19 @@
+{
+    "main": {
+        "height": 600,
+        "width": 400,
+        "movable": true,
+        "resizable": true,
+        "fullscreenable": false,
+        "autoHideMenuBar": true,
+        "alwaysOnTop": true,
+        "show": false,
+        "frame": true
+    },
+    "tray": {
+        "name": "To Do"
+    },
+    "global": {
+        "port": 4000
+    }
+}

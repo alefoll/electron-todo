@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+		<title>Todos</title>
+
+		<link rel="stylesheet" href="css/vendors.css">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+
+	<body class="ng-cloak">
+		<div ng-controller="TodosController">
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<h2>
+                        <span>Todos : {{ todos.length }}</span>
+					</h2>
+
+                    <span flex></span>
+
+					<md-button class="md-icon-button" ng-click="showAdd()" aria-label="Update">
+						<md-icon md-svg-icon="assets/node_add.svg"></md-icon>
+					</md-button>
+				</div>
+			</md-toolbar>
+
+			<md-content flex>
+				<md-list flex>
+                    <md-list-item ng-repeat="todo in todos track by $index" class="noright">
+                        <!--<img alt="{{ todo.client }}" ng-src="assets/clients/{{ todo.client }}.png" class="md-avatar" />-->
+                        <p>{{ todo.name }}</p>
+                        <md-datepicker ng-model="todo.date" md-placeholder="Enter date" disabled></md-datepicker>
+                        <md-icon ng-click="done(todo)" aria-label="Done" md-svg-icon="assets/done.svg" class="md-secondary md-hue-3"></md-icon>
+                    </md-list-item>
+
+                    <md-list-item ng-show="showLine" class="noright">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>First name</label>
+                            <input ng-model="name">
+                        </md-input-container>
+
+                        <md-datepicker ng-model="date" md-min-date="minDate" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+
+                        <md-icon ng-click="cancel($event)" aria-label="Cancel" md-svg-icon="assets/clear.svg" class="md-secondary md-hue-3"></md-icon>
+                        <md-icon ng-click="add($event)" aria-label="Add" md-svg-icon="assets/done.svg" class="md-secondary md-hue-3"></md-icon>
+                    </md-list-item>
+				</md-list>
+			</md-content>
+		</div>
+
+		<script src="js/vendors.min.js"></script>
+		<script src="js/app.min.js"></script>
+	</body>
+</html>
