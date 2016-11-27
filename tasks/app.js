@@ -17,9 +17,10 @@ module.exports = () => {
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(concat('app.min.js', { newLine: "\n" }))
-    .pipe(sourcemaps.init())
-    .pipe(gutil.env.prod ? uglify() : gutil.noop())
-    .pipe(sourcemaps.write('./'))
+    // .pipe(sourcemaps.init())
+    // .pipe(uglify())
+    // .pipe(gutil.env.prod ? uglify() : gutil.noop())
+    // .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('build/js'))
     .pipe(browserSync.has('app') ? browserSync.get('app').reload({ stream: true }) : gutil.noop())
 };

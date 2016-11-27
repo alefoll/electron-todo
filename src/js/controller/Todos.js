@@ -1,6 +1,6 @@
 (() => {
     angular.module('Todos')
-        .controller('TodosController', ['$scope', ($scope) => {
+        .controller('TodosController', ['$scope', '$mdDialog', ($scope, $mdDialog) => {
             $scope.add     = add;
             $scope.cancel  = cancel;
             $scope.done    = done;
@@ -8,8 +8,7 @@
 
             $scope.date     = '';
             $scope.minDate  = new Date();
-            $scope.name     = '';
-            $scope.showLine = false;
+            $scope.task     = '';
             $scope.todos    = JSON.parse(localStorage.getItem('todos')) || [];
 
             $scope.$watchCollection('todos', () => {
@@ -20,22 +19,20 @@
                 todo.date = new Date(todo.date);
 
             function add() {
-                $scope.showLine = false;
-
                 $scope.todos.push({
                     // client : $scope.client,
-                    name   : $scope.name,
-                    date   : $scope.date
+                    created : new Date(),
+                    task    : $scope.task,
+                    date    : $scope.date
                 })
 
-                $scope.name = '';
-                $scope.date = '';
+                cancel();
             }
 
             function cancel() {
-                $scope.showLine = false;
+                $mdDialog.hide();
 
-                $scope.name = '';
+                $scope.task = '';
                 $scope.date = '';
             }
 
@@ -46,7 +43,14 @@
             }
 
             function showAdd() {
-                $scope.showLine = true;
+                $mdDialog.show({
+                    templateUrl         : 'newTodo.html',
+                    preserveScope       : true,
+                    scope               : $scope,
+                    parent              : angular.element(document.body),
+                    clickOutsideToClose : false,
+                    fullscreen          : false
+                })
             }
         }]);
 })();

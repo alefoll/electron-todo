@@ -1,0 +1,29 @@
+<md-dialog>
+    <form ng-cloak>
+        <md-toolbar class="md-hue-2">
+            <div class="md-toolbar-tools">
+                <h2>New</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-icon="assets/clear-white.svg" aria-label="Cancel"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-input-container class="md-block">
+                    <label>Task</label>
+                    <input ng-model="task">
+                </md-input-container>
+
+                <md-datepicker ng-model="date" md-min-date="minDate" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()">Cancel</md-button>
+            <md-button ng-click="add()">Add</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -6,12 +6,12 @@
         "resizable": true,
         "fullscreenable": false,
         "autoHideMenuBar": true,
-        "alwaysOnTop": true,
+        "alwaysOnTop": false,
         "show": false,
         "frame": true
     },
     "tray": {
-        "name": "To Do"
+        "name": "Task"
     },
     "global": {
         "port": 4000

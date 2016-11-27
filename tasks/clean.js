@@ -3,5 +3,5 @@ const del = require('del');
 module.exports = () => {
     'use strict';
 
-    return del(['build/**', 'webapp-*/**']);
+    return del(['build/**', 'electron-todo-*/**']);
 };

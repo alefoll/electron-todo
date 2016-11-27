@@ -8,17 +8,13 @@ module.exports = (main) => {
     const tray = new Tray(path.resolve(`${__dirname}/../build/assets/tray.png`));
 
     tray.on('click', () => {
-        if (!main.window.isVisible()) {
-            main.showPopin();
+        if (!main.window.isVisible())
             main.window.show();
-        }
     });
 
     tray.on('double-click', () => {
-        if (!main.window.isVisible()) {
-            main.showPopin();
+        if (!main.window.isVisible())
             main.window.show();
-        }
     });
 
     const quit = () => {

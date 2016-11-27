@@ -9,6 +9,7 @@ module.exports = (done) => {
         platform: 'win32',
         asar: true,
         prune: true,
+        icon: 'build/assets/logo.ico',
         ignore: [
             '.editorconfig',
             '.eslintrc.json',

@@ -1,7 +1,5 @@
 const path = require('path');
 
-const defaultConfig = require('../src/default.json');
-
 let config;
 
 try {
@@ -25,7 +23,7 @@ function get(key) {
 
         if (result === undefined && !useDefault) {
             useDefault = true;
-            result     = defaultConfig;
+            result     = require('../build/default.json');
 
             i = -1;
         }

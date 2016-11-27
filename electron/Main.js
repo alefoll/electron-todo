@@ -61,7 +61,7 @@ module.exports = () => {
     });
 
     return {
-        window    : window,
-        bounds    : bounds
+        window : window,
+        bounds : bounds
     }
 }
