@@ -11,7 +11,7 @@
 	</head>
 
 	<body ng-cloak>
-		<div ng-controller="TodosController">
+		<div ng-controller="TodosController" layout="column" layout-fill>
 			<md-toolbar>
 				<div class="md-toolbar-tools">
 					<h2>
@@ -28,18 +28,13 @@
 
 			<md-content flex>
 				<md-list flex>
-                    <md-list-item ng-repeat="todo in todos track by $index" class="noright">
+                    <md-list-item ng-repeat="todo in todos track by $index">
                         <!--<img alt="{{ todo.client }}" ng-src="assets/clients/{{ todo.client }}.png" class="md-avatar" />-->
-                        <p>{{ todo.task }}</p>
+                        <p ng-if="!isYoutrackIssue(todo.task)" data-index="{{ $index }}" class="task">{{ todo.task }}</p>
+                        <p ng-if="isYoutrackIssue(todo.task)" data-index="{{ $index }}" class="task clickable" ng-click="openExternal(youtrackURL + '/' + todo.task)">{{ todo.task }}</p>
                         <md-datepicker ng-model="todo.date" md-placeholder="Enter date" disabled></md-datepicker>
                         <md-icon ng-click="done(todo)" aria-label="Done" md-svg-icon="assets/done.svg" class="md-secondary md-hue-3"></md-icon>
                     </md-list-item>
-
-                    <!--<md-list-item ng-show="showLine" class="noright">
-
-                        <md-icon ng-click="cancel($event)" aria-label="Cancel" md-svg-icon="assets/clear.svg" class="md-secondary md-hue-3"></md-icon>
-                        <md-icon ng-click="add($event)" aria-label="Add" md-svg-icon="assets/done.svg" class="md-secondary md-hue-3"></md-icon>
-                    </md-list-item>-->
 				</md-list>
 			</md-content>
 		</div>

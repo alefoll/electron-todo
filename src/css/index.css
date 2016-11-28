@@ -2,33 +2,11 @@ html {
     height: 100%;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-
-    min-height: 100%;
-}
-
-.test-hidden {
-    width: 100%;
-    display: inline-flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border-bottom: 5px solid #f00;
-}
-
-.test-hidden h2 {
-    padding: 0 10px;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
 .hidden {
     display: none;
 }
 
-webview {
-    flex: 1 1 auto;
-    align-self: stretch;
+.clickable {
+    font-weight: bold;
+    cursor: pointer;
 }

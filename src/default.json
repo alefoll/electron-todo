@@ -13,6 +13,10 @@
     "tray": {
         "name": "Task"
     },
+    "youtrack": {
+        "enabled": false,
+        "url": ""
+    },
     "global": {
         "port": 4000
     }
