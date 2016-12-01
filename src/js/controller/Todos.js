@@ -6,6 +6,8 @@
     const Config = remote.require('./electron/Config');
     const moment = remote.require('moment');
 
+    moment.locale('fr');
+
     angular.module('Todos')
         .config(['$mdDateLocaleProvider', function($mdDateLocaleProvider) {
             $mdDateLocaleProvider.months      = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
