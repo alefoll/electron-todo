@@ -2,7 +2,7 @@
     <form ng-cloak>
         <md-toolbar class="md-hue-2">
             <div class="md-toolbar-tools">
-                <h2>New</h2>
+                <h2>Nouvelle tâche</h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="close()">
                     <md-icon md-svg-icon="assets/clear-white.svg" aria-label="Cancel"></md-icon>
@@ -13,17 +13,37 @@
         <md-dialog-content>
             <div class="md-dialog-content">
                 <md-input-container class="md-block">
-                    <label>Task</label>
+                    <label>Tâche</label>
                     <input ng-model="task">
                 </md-input-container>
 
-                <md-datepicker ng-model="date" md-min-date="minDate" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+                <div class="md-block" flex layout>
+                    <md-datepicker ng-model="date" md-min-date="minDate" md-placeholder="Date" md-open-on-focus></md-datepicker>
+
+                    <md-input-container>
+                        <label>Heure</label>
+                        <md-select ng-model="hour">
+                            <md-option ng-repeat="i in [9, 10, 11, 12, 14, 15, 16, 17, 18, 19]" value="{{ i }}">
+                                {{ i }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>Minute</label>
+                        <md-select ng-model="minute">
+                            <md-option ng-repeat="i in [0, 15, 30, 45]" value="{{ i }}">
+                                {{ i }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
             </div>
         </md-dialog-content>
 
         <md-dialog-actions layout="row">
-            <md-button ng-click="close()">Cancel</md-button>
-            <md-button ng-click="add()">Add</md-button>
+            <md-button ng-click="close()">Annuler</md-button>
+            <md-button ng-click="add()">Ajouter</md-button>
         </md-dialog-actions>
     </form>
 </md-dialog>

@@ -6,6 +6,36 @@ html {
     display: none;
 }
 
+.item {
+    margin-bottom: 10px;
+}
+
+.item p {
+    flex: 0 0 auto;
+}
+
+p.item-task {
+    flex: 1 1 auto;
+}
+
+.item-calendar-icon {
+    margin-right: 10px;
+}
+
+.item md-progress-linear,
+.item md-progress-linear .md-container {
+    height: 2px;
+    background-color: transparent !important;
+}
+
+md-dialog md-datepicker {
+    margin-top: 17px;
+}
+
+md-dialog .md-dialog-content {
+    padding: 12px;
+}
+
 .clickable {
     font-weight: bold;
     cursor: pointer;

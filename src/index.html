@@ -15,26 +15,35 @@
 			<md-toolbar>
 				<div class="md-toolbar-tools">
 					<h2>
-                        <span>Task : {{ todos.length }}</span>
+                        <span>Nombre de tâche{{ todos.length > 1 ? 's' : '' }} : {{ todos.length }}</span>
 					</h2>
 
                     <span flex></span>
 
-					<md-button class="md-icon-button" ng-click="showAdd()" aria-label="Update">
-						<md-icon md-svg-icon="assets/node_add.svg"></md-icon>
+					<md-button class="md-icon-button" ng-show="history.length > 1" ng-click="undo()" aria-label="Annuler">
+						<md-icon md-svg-icon="assets/undo.svg"></md-icon>
+					</md-button>
+
+					<md-button class="md-icon-button" ng-click="showAdd()" aria-label="Ajouter">
+						<md-icon md-svg-icon="assets/note_add.svg"></md-icon>
 					</md-button>
 				</div>
 			</md-toolbar>
 
 			<md-content flex>
 				<md-list flex>
-                    <md-list-item ng-repeat="todo in todos track by $index">
-                        <!--<img alt="{{ todo.client }}" ng-src="assets/clients/{{ todo.client }}.png" class="md-avatar" />-->
-                        <p ng-if="!isYoutrackIssue(todo.task)" data-index="{{ $index }}" class="task">{{ todo.task }}</p>
-                        <p ng-if="isYoutrackIssue(todo.task)" data-index="{{ $index }}" class="task clickable" ng-click="openExternal(youtrackURL + '/' + todo.task)">{{ todo.task }}</p>
-                        <md-datepicker ng-model="todo.date" md-placeholder="Enter date" disabled></md-datepicker>
-                        <md-icon ng-click="done(todo)" aria-label="Done" md-svg-icon="assets/done.svg" class="md-secondary md-hue-3"></md-icon>
-                    </md-list-item>
+                    <div class="item" ng-repeat="todo in todos | sort">
+                        <md-list-item>
+                            <!--<img alt="{{ todo.client }}" ng-src="assets/clients/{{ todo.client }}.png" class="md-avatar" />-->
+                            <p ng-if="!isYoutrackIssue(todo.task)" data-index="{{ $index }}" class="item-task">{{ todo.task }}</p>
+                            <p ng-if="isYoutrackIssue(todo.task)" data-index="{{ $index }}" class="item-task clickable" ng-click="openExternal(youtrackURL + '/' + todo.task)">{{ todo.task }}</p>
+                            <md-icon class="item-calendar-icon" md-svg-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTkgM2gtMVYxaC0ydjJIOFYxSDZ2Mkg1Yy0xLjExIDAtMS45OS45LTEuOTkgMkwzIDE5YzAgMS4xLjg5IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bTAgMTZINVY4aDE0djExek03IDEwaDV2NUg3eiIvPjwvc3ZnPg=="></md-icon>
+                            <p>{{ todo.date | moment }}</p>
+                            <md-icon ng-click="done(todo)" aria-label="Done" md-svg-icon="assets/done.svg" class="md-secondary md-hue-3"></md-icon>
+                        </md-list-item>
+
+                        <md-progress-linear class="md-accent md-hue-1" md-mode="determinate" ng-value="todo.progress"></md-progress-linear>
+                    </div>
 				</md-list>
 			</md-content>
 		</div>

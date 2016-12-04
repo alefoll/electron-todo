@@ -24,46 +24,99 @@
 
             $mdDateLocaleProvider.formatDate = function(date) {
                 const m = moment(date);
-                return m.isValid() ? m.format('L') : '';
+
+                return m.isValid() ? m.format('ddd DD/MM') : '';
             };
 
             $mdDateLocaleProvider.msgCalendar     = "Calendrier";
             $mdDateLocaleProvider.msgOpenCalendar = "Ouvrir le calendrier";
         }])
-        .controller('TodosController', ['$scope', '$mdDialog', ($scope, $mdDialog) => {
-            $scope.add             = add;
-            $scope.close           = close;
-            $scope.done            = done;
-            $scope.edit            = edit;
-            $scope.isYoutrackIssue = isYoutrackIssue;
-            $scope.openExternal    = shell.openExternal;
-            $scope.showAdd         = showAdd;
-            $scope.showEdit        = showEdit;
+        .filter('moment', () => {
+            return (date) => {
+                if (date !== undefined) {
+                    const m = moment(date);
 
-            $scope.date        = '';
+                    return m.isValid() ? m.format('ddd DD/MM, H:mm') : '';
+                }
+            }
+        })
+        .filter('sort', () => {
+            return (items) => {
+                const filtered = [];
+
+                for (let item of items)
+                    filtered.push(item);
+
+                filtered.sort((a, b) => {
+                    return (a.date.getTime() === b.date.getTime()) ? a.task.toLowerCase() > b.task.toLowerCase() : a.date.getTime() > b.date.getTime();
+                })
+
+                return filtered;
+            }
+        })
+        .filter('zpad', () => {
+            return (input, n) => {
+                if (input === undefined)
+                    input = "";
+
+                if (input.length >= n)
+                    return input;
+
+                const zeros = "0".repeat(n);
+
+                return (zeros + input).slice(-1 * n);
+            }
+        })
+        .controller('TodosController', ['$scope', '$mdDialog', '$interval', ($scope, $mdDialog, $interval) => {
+            $scope.add              = add;
+            $scope.close            = close;
+            $scope.done             = done;
+            $scope.edit             = edit;
+            $scope.isYoutrackIssue  = isYoutrackIssue;
+            $scope.openExternal     = shell.openExternal;
+            $scope.showAdd          = showAdd;
+            $scope.showEdit         = showEdit;
+            $scope.undo             = undo;
+
+            $scope.date        = new Date();
+            $scope.history     = [];
+            $scope.hour        = 18;
             $scope.minDate     = new Date();
+            $scope.minute      = 0;
             $scope.task        = '';
             $scope.todos       = JSON.parse(localStorage.getItem('todos')) || [];
             $scope.youtrackURL = Config.get('youtrack.url');
 
-            $scope.$watchCollection('todos', _updateAndSave)
+            $scope.$watchCollection('todos', _updateAndSave);
 
-            for(let todo of $scope.todos)
+            for(let todo of $scope.todos) {
                 todo.date = new Date(todo.date);
+
+                _updateProgress(todo);
+            }
+
+            $interval(() => {
+                for(let todo of $scope.todos)
+                    _updateProgress(todo);
+            }, 60000);
+
+            // ***************************
+            // Right click
+            // ***************************
 
             const menu = new Menu();
 
             let index;
 
             menu.append(new MenuItem({
-                label: 'Edit',
+                label: 'Editer',
                 click() {
                     showEdit(index)
                 }
             }));
 
             window.addEventListener('contextmenu', (event) => {
-                if (event.target.classList.contains('task')) {
+                if (event.target.classList.contains('item-task')) {
                     event.preventDefault();
 
                     index = event.target.dataset.index;
@@ -73,19 +126,35 @@
             }, false)
 
             function _updateAndSave() {
-                $scope.todos.sort((a, b) => {
-                    return (a.date.getTime() === b.date.getTime()) ? a.task.toLowerCase() > b.task.toLowerCase() : a.date.getTime() > b.date.getTime();
-                });
+                $scope.history.push(angular.copy($scope.todos));
 
                 localStorage.setItem('todos', JSON.stringify($scope.todos));
             }
 
+            function _updateProgress(todo) {
+                const now   = Date.now();
+                const start = +new Date(todo.created); // + to transform in timestamp
+                const end   = +new Date(todo.date);
+
+                todo.progress = ((now - start) / (end - start)) * 100;
+            }
+
             function add() {
+                const m = moment($scope.date);
+
+                m.hour($scope.hour);
+                m.minute($scope.minute);
+                m.second(0);
+
+                $scope.date   = new Date();
+                $scope.hour   = 18;
+                $scope.minute = 0;
+
                 $scope.todos.push({
                     // client : $scope.client,
                     created : new Date(),
                     task    : $scope.task,
-                    date    : $scope.date
+                    date    : m.toDate()
                 });
 
                 close();
@@ -95,9 +164,7 @@
                 $mdDialog.hide();
 
                 $scope.task = '';
-                $scope.date = '';
-
-                _updateAndSave();
+                $scope.date = new Date();
             }
 
             function done(todo) {
@@ -107,8 +174,18 @@
             }
 
             function edit() {
+                const m = moment($scope.date);
+
+                m.hour($scope.hour);
+                m.minute($scope.minute);
+                m.second(0);
+
+                $scope.date   = new Date();
+                $scope.hour   = 18;
+                $scope.minute = 0;
+
                 $scope.todos[index].task = $scope.task;
-                $scope.todos[index].date = $scope.date;
+                $scope.todos[index].date = m.toDate();
 
                 close();
             }
@@ -140,6 +217,12 @@
                     clickOutsideToClose : false,
                     fullscreen          : false
                 })
+            }
+
+            function undo() {
+                $scope.history.pop();
+
+                $scope.todos = $scope.history.pop();
             }
         }]);
 })();
