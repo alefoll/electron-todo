@@ -128,7 +128,7 @@
             function _updateAndSave() {
                 $scope.history.push(angular.copy($scope.todos));
 
-                localStorage.setItem('todos', JSON.stringify($scope.todos));
+                localStorage.setItem('todos', angular.toJson($scope.todos));
             }
 
             function _updateProgress(todo) {
