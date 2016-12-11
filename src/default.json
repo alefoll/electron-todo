@@ -15,7 +15,9 @@
     },
     "youtrack": {
         "enabled": false,
-        "url": ""
+        "url": "",
+        "username": "",
+        "password": ""
     },
     "global": {
         "port": 4000

@@ -3,76 +3,18 @@
 
     const { Menu, MenuItem } = remote;
 
-    const Config = remote.require('./electron/Config');
     const moment = remote.require('moment');
 
     moment.locale('fr');
 
     angular.module('Todos')
-        .config(['$mdDateLocaleProvider', function($mdDateLocaleProvider) {
-            $mdDateLocaleProvider.months      = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
-            $mdDateLocaleProvider.shortMonths = ["janv.",   "févr.",   "mars", "avr.",  "mai", "juin", "juil.",   "août",  "sept.",    "oct.",    "nov.",     "déc."];
-
-            $mdDateLocaleProvider.days      = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
-            $mdDateLocaleProvider.shortDays = ["Di",       "Lu",    "Ma",    "Me",       "Je",    "Ve",        "Sa"];
-
-            $mdDateLocaleProvider.firstDayOfWeek = 1;
-
-            $mdDateLocaleProvider.weekNumberFormatter = (weekNumber) => {
-                return 'Semaine ' + weekNumber;
-            }
-
-            $mdDateLocaleProvider.formatDate = function(date) {
-                const m = moment(date);
-
-                return m.isValid() ? m.format('ddd DD/MM') : '';
-            };
-
-            $mdDateLocaleProvider.msgCalendar     = "Calendrier";
-            $mdDateLocaleProvider.msgOpenCalendar = "Ouvrir le calendrier";
-        }])
-        .filter('moment', () => {
-            return (date) => {
-                if (date !== undefined) {
-                    const m = moment(date);
-
-                    return m.isValid() ? m.format('ddd DD/MM, H:mm') : '';
-                }
-            }
-        })
-        .filter('sort', () => {
-            return (items) => {
-                const filtered = [];
-
-                for (let item of items)
-                    filtered.push(item);
-
-                filtered.sort((a, b) => {
-                    return (a.date.getTime() === b.date.getTime()) ? a.task.toLowerCase() > b.task.toLowerCase() : a.date.getTime() > b.date.getTime();
-                })
-
-                return filtered;
-            }
-        })
-        .filter('zpad', () => {
-            return (input, n) => {
-                if (input === undefined)
-                    input = "";
-
-                if (input.length >= n)
-                    return input;
-
-                const zeros = "0".repeat(n);
-
-                return (zeros + input).slice(-1 * n);
-            }
-        })
-        .controller('TodosController', ['$scope', '$mdDialog', '$interval', ($scope, $mdDialog, $interval) => {
+        .controller('TodosController', ['$scope', '$mdDialog', '$interval', '$youtrack', ($scope, $mdDialog, $interval, $youtrack) => {
             $scope.add              = add;
             $scope.close            = close;
             $scope.done             = done;
             $scope.edit             = edit;
-            $scope.isYoutrackIssue  = isYoutrackIssue;
+            $scope.importYoutrack   = importYoutrack;
+            $scope.isYoutrackIssue  = $youtrack.isIssue;
             $scope.openExternal     = shell.openExternal;
             $scope.showAdd          = showAdd;
             $scope.showEdit         = showEdit;
@@ -85,7 +27,7 @@
             $scope.minute      = 0;
             $scope.task        = '';
             $scope.todos       = JSON.parse(localStorage.getItem('todos')) || [];
-            $scope.youtrackURL = Config.get('youtrack.url');
+            $scope.youtrackURL = $youtrack.url;
 
             $scope.$watchCollection('todos', _updateAndSave);
 
@@ -190,8 +132,8 @@
                 close();
             }
 
-            function isYoutrackIssue(task) {
-                return (Config.get('youtrack.enabled')) ? (/([A-Z]+)-([0-9]+)/.test(task)) : false;
+            function importYoutrack() {
+                $youtrack.listIssues();
             }
 
             function showAdd() {

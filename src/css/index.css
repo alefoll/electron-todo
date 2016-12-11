@@ -6,6 +6,19 @@ html {
     display: none;
 }
 
+.md-icon-youtrack {
+    padding: 4px;
+    line-height: 32px;
+}
+
+.md-icon-youtrack md-icon {
+    background-image: url(../assets/youtrack.png);
+    background-size: 100% 100%;
+    height: 32px;
+    width: 32px;
+    line-height: 32px;
+}
+
 .item {
     margin-bottom: 10px;
 }
