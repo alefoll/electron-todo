@@ -7,8 +7,8 @@ html {
 }
 
 .md-icon-youtrack {
-    padding: 4px;
-    line-height: 32px;
+    padding: 4px !important;
+    line-height: 32px !important;
 }
 
 .md-icon-youtrack md-icon {
@@ -52,4 +52,10 @@ md-dialog .md-dialog-content {
 .clickable {
     font-weight: bold;
     cursor: pointer;
+}
+
+.youtrack-list-issue .md-list-item-inner {
+    height: 48px;
+    line-height: 48px;
+    align-items: flex-start;
 }

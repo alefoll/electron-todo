@@ -1,0 +1,23 @@
+<md-dialog>
+    <form ng-cloak>
+        <md-toolbar class="md-hue-2">
+            <div class="md-toolbar-tools">
+                <h2>Youtrack</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="close()">
+                    <md-icon md-svg-icon="assets/clear-white.svg" aria-label="Cancel"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content class="">
+            <md-list-item class="youtrack-list-issue" ng-click="showAdd(issue.id + ' - ' + issue.title)" ng-repeat="issue in youtrackIssues">
+                <p>[{{ issue.id }}] {{ issue.title }}</p>
+            </md-list-item>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="close()">Annuler</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -40,7 +40,7 @@
                         <md-list-item>
                             <!--<img alt="{{ todo.client }}" ng-src="assets/clients/{{ todo.client }}.png" class="md-avatar" />-->
                             <p ng-if="!isYoutrackIssue(todo.task)" data-index="{{ todo.index }}" class="item-task">{{ todo.task }}</p>
-                            <p ng-if="isYoutrackIssue(todo.task)" data-index="{{ todo.index }}" class="item-task clickable" ng-click="openExternal(youtrackURL + '/' + todo.task)">{{ todo.task }}</p>
+                            <p ng-if="isYoutrackIssue(todo.task)" data-index="{{ todo.index }}" class="item-task clickable" ng-click="openExternal(youtrackURL + '/issue/' + todo.task)">{{ todo.task }}</p>
                             <md-icon class="item-calendar-icon" md-svg-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTkgM2gtMVYxaC0ydjJIOFYxSDZ2Mkg1Yy0xLjExIDAtMS45OS45LTEuOTkgMkwzIDE5YzAgMS4xLjg5IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bTAgMTZINVY4aDE0djExek03IDEwaDV2NUg3eiIvPjwvc3ZnPg=="></md-icon>
                             <p>{{ todo.date | moment }}</p>
                             <md-icon ng-click="done(todo)" aria-label="Done" md-svg-icon="assets/done.svg" class="md-secondary md-hue-3"></md-icon>

@@ -133,10 +133,23 @@
             }
 
             function importYoutrack() {
-                $youtrack.listIssues();
+                $youtrack.listIssues().then((issues) => {
+                    $scope.youtrackIssues = issues;
+
+                    $mdDialog.show({
+                        templateUrl         : 'modalImportYoutrack.html',
+                        preserveScope       : true,
+                        scope               : $scope,
+                        parent              : angular.element(document.body),
+                        clickOutsideToClose : false,
+                        fullscreen          : false
+                    })
+                })
             }
 
-            function showAdd() {
+            function showAdd(title) {
+                $scope.task = title || '';
+
                 $mdDialog.show({
                     templateUrl         : 'modalAdd.html',
                     preserveScope       : true,
