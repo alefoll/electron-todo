@@ -19,6 +19,7 @@
             $scope.showAdd          = showAdd;
             $scope.showEdit         = showEdit;
             $scope.undo             = undo;
+            $scope.youtrackEnabled  = $youtrack.enabled;
 
             $scope.date        = new Date();
             $scope.history     = [];

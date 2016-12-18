@@ -12,7 +12,7 @@
 
         <md-dialog-content class="">
             <md-list-item class="youtrack-list-issue" ng-click="showAdd(issue.id + ' - ' + issue.title)" ng-repeat="issue in youtrackIssues">
-                <p>[{{ issue.id }}] {{ issue.title }}</p>
+                <p><span class="bold">[{{ issue.id }}]</span> {{ issue.title }}</p>
             </md-list-item>
         </md-dialog-content>
 

@@ -6,6 +6,10 @@ html {
     display: none;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .md-icon-youtrack {
     padding: 4px !important;
     line-height: 32px !important;
@@ -29,6 +33,9 @@ html {
 
 p.item-task {
     flex: 1 1 auto;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .item-calendar-icon {
@@ -55,7 +62,7 @@ md-dialog .md-dialog-content {
 }
 
 .youtrack-list-issue .md-list-item-inner {
-    height: 48px;
-    line-height: 48px;
-    align-items: flex-start;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
