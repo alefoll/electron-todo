@@ -15,6 +15,7 @@
             $scope.edit             = edit;
             $scope.importYoutrack   = importYoutrack;
             $scope.isYoutrackIssue  = $youtrack.isIssue;
+            $scope.onlyWorkingDay   = onlyWorkingDay;
             $scope.openExternal     = shell.openExternal;
             $scope.showAdd          = showAdd;
             $scope.showEdit         = showEdit;
@@ -130,6 +131,7 @@
                 $scope.todos[index].task = $scope.task;
                 $scope.todos[index].date = m.toDate();
 
+                _updateAndSave();
                 close();
             }
 
@@ -146,6 +148,12 @@
                         fullscreen          : false
                     })
                 })
+            }
+
+            function onlyWorkingDay(date) {
+                const day = date.getDay();
+
+                return day !== 0 && day !== 6;
             }
 
             function showAdd(title) {

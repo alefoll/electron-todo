@@ -52,6 +52,17 @@ md-dialog md-datepicker {
     margin-top: 17px;
 }
 
+md-dialog md-datepicker .md-datepicker-input {
+    min-width: 85px;
+    width: 85px;
+    max-width: 85px;
+}
+
+md-dialog md-datepicker .md-datepicker-button.md-button {
+    padding: 4px;
+    margin: 0 2px;
+}
+
 md-dialog .md-dialog-content {
     padding: 12px;
 }
