@@ -14,11 +14,10 @@ gulp.task('envProd', (done) => {
 gulp.task('app',          require('./tasks/app.js'));
 gulp.task('assets',       require('./tasks/assets.js'));
 gulp.task('browser-sync', require('./tasks/browser-sync.js'));
+gulp.task('builder',      require('./tasks/builder.js'));
 gulp.task('clean',        require('./tasks/clean.js'));
-gulp.task('config',       require('./tasks/config.js'));
 gulp.task('electron',     require('./tasks/electron.js'));
 gulp.task('layout',       require('./tasks/layout.js'));
-gulp.task('packager',     require('./tasks/packager.js'));
 gulp.task('style',        require('./tasks/style.js'));
 gulp.task('vendorsCSS',   require('./tasks/vendorsCSS.js'));
 gulp.task('vendorsJS',    require('./tasks/vendorsJS.js'));
@@ -30,4 +29,4 @@ gulp.task('build',   gulp.series('clean', 'vendorsCSS', 'vendorsJS', 'assets', '
 gulp.task('default', gulp.series('build', 'launch'));
 gulp.task('prod',    gulp.series('envProd', 'build', 'electron'));
 
-gulp.task('exe', gulp.series('envProd', 'build', 'packager', 'config'));
+gulp.task('exe', gulp.series('envProd', 'build', 'builder'));

@@ -17,13 +17,11 @@
                 }, () => {
                     console.log("To do, make angular.$http return xml");
 
-                    const query = "for: me #Unresolved and State: -{to test}";
-
                     return $http({
                         method : 'GET',
                         url    : `${url}/rest/issue`,
                         params : {
-                            filter : query,
+                            filter : Config.get('youtrack.query'),
                             max    : 20,
                             with   : ["summary", "Priority"]
                         }

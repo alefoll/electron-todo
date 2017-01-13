@@ -1,7 +1,7 @@
 {
   "name": "electron-todo",
-  "version": "1.1.2",
-  "description": "",
+  "version": "2.0.0",
+  "description": "Todos",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,7 +9,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "electron": "^1.4.7",
     "express": "^4.14.0",
     "moment": "^2.17.0",
     "yargs": "^6.0.0"
@@ -23,7 +22,8 @@
     "autoprefixer": "^6.5.1",
     "browser-sync": "^2.17.3",
     "del": "^2.2.2",
-    "electron-packager": "^8.1.0",
+    "electron": "^1.4.7",
+    "electron-builder": "^11.2.4",
     "event-stream": "^3.3.4",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-concat": "^2.6.0",
