@@ -1,6 +1,6 @@
 {
   "name": "electron-todo",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Todos",
   "main": "main.js",
   "scripts": {
