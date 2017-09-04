@@ -1,7 +1,6 @@
 const gulp = require('gulp');
 
 const concat     = require('gulp-concat');
-const eslint     = require('gulp-eslint');
 const gutil      = require('gulp-util');
 const sourcemaps = require('gulp-sourcemaps');
 const uglify     = require('gulp-uglify');
@@ -14,8 +13,6 @@ module.exports = () => {
     return gulp.src([
         'src/js/**/*.js'
     ])
-    .pipe(eslint())
-    .pipe(eslint.format())
     .pipe(concat('app.min.js', { newLine: "\n" }))
     // .pipe(sourcemaps.init())
     // .pipe(uglify())

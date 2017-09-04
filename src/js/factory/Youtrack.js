@@ -8,8 +8,21 @@
             const enabled = Config.get('youtrack.enabled');
             const url     = Config.get('youtrack.url');
 
+            function _findField(fields, name) {
+                const field = fields.find((field) => {
+                    return field.name === name;
+                });
+
+                if (field !== undefined) {
+                    if (Array.isArray(field.value))
+                        return field.value[0];
+
+                    return field.value;
+                }
+            }
+
             function isIssue(task) {
-                return (enabled) ? (/^([A-Z]+)-([0-9]+)/.test(task)) : false;
+                return (enabled) ? (/^([A-Z0-9]+)-([0-9]+)/.test(task)) : false;
             }
 
             function listIssues() {
@@ -19,19 +32,22 @@
 
                     return $http({
                         method : 'GET',
-                        url    : `${url}/rest/issue`,
+                        url    : `${ url }/rest/issue`,
                         params : {
                             filter : Config.get('youtrack.query'),
-                            max    : 20,
-                            with   : ["summary", "Priority"]
+                            max    : 1000,
+                            with   : ["summary", "created", "Priority", "Due Date"]
                         }
                     }).then((response) => {
                         const issues = [];
 
                         for (let issue of response.data.issue) {
                             issues.push({
-                                id    : issue.id,
-                                title : issue.field[0].value
+                                id       : issue.id,
+                                title    : _findField(issue.field, "summary"),
+                                priority : _findField(issue.field, "Priority"),
+                                created  : _findField(issue.field, "created"),
+                                dueDate  : _findField(issue.field, "Due Date")
                             })
                         }
 
@@ -55,7 +71,7 @@
             function login() {
                 return $http({
                     method : 'POST',
-                    url    : `${url}/rest/user/login`,
+                    url    : `${ url }/rest/user/login`,
                     data   : $httpParamSerializer({
                         login    : Config.get('youtrack.username'),
                         password : Config.get('youtrack.password')

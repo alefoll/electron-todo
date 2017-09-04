@@ -44,6 +44,52 @@
                     _updateProgress(todo);
             }, 60000);
 
+            if ($youtrack.enabled) {
+                const updateDueDate = () => {
+                    $youtrack.listIssues().then((issues) => {
+                        const newIssues = [];
+
+                        for (let issue of issues) {
+                            if (issue.dueDate !== undefined) {
+                                let task = $scope.todos.find((task) => {
+                                    return task.task === (issue.id + ' - ' + issue.title);
+                                });
+
+                                if (task === undefined) {
+                                    const m = moment(parseInt(issue.dueDate));
+
+                                    task = {
+                                        created : new Date(parseInt(issue.created)),
+                                        task    : (issue.id + ' - ' + issue.title),
+                                        date    : m.toDate()
+                                    }
+
+                                    $scope.todos.push(task);
+
+                                    newIssues.push(task.task);
+                                } else if (task.date.valueOf() !== parseInt(issue.dueDate)){
+                                    task.date = moment(parseInt(issue.dueDate)).toDate()
+                                }
+
+                                _updateProgress(task);
+                            }
+                        }
+
+                        if (newIssues.length > 0) {
+                            new Notification("Youtrack", {
+                                body: `New Issue${ (newIssues.length > 1) ? 's' : '' } : ` + (newIssues.map((issue) => {
+                                    return issue.split(' - ')[0];
+                                }).join(' '))
+                            });
+                        }
+                    });
+                }
+
+                $interval(updateDueDate, 300000) // 5 minutes
+
+                updateDueDate();
+            }
+
             // ***************************
             // Right click
             // ***************************

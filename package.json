@@ -1,6 +1,6 @@
 {
   "name": "electron-todo",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Todos",
   "main": "main.js",
   "scripts": {
@@ -9,30 +9,29 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.14.0",
-    "moment": "^2.17.0",
-    "yargs": "^6.0.0"
+    "express": "^4.15.4",
+    "moment": "^2.18.1",
+    "yargs": "^8.0.2"
   },
   "devDependencies": {
-    "angular": "~1.5.9",
-    "angular-animate": "~1.5.9",
-    "angular-aria": "~1.5.9",
-    "angular-material": "^1.1.0-rc.5",
-    "angular-sanitize": "~1.5.9",
-    "autoprefixer": "^6.5.1",
-    "browser-sync": "^2.17.3",
-    "del": "^2.2.2",
-    "electron": "^1.4.7",
-    "electron-builder": "^11.2.4",
+    "angular": "^1.6.6",
+    "angular-animate": "^1.6.6",
+    "angular-aria": "^1.6.6",
+    "angular-material": "^1.1.4",
+    "angular-sanitize": "^1.6.6",
+    "autoprefixer": "^7.1.3",
+    "browser-sync": "^2.18.13",
+    "del": "^3.0.0",
+    "electron": "^1.8.0",
+    "electron-builder": "^19.27.3",
     "event-stream": "^3.3.4",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-concat": "^2.6.0",
-    "gulp-eslint": "^3.0.1",
-    "gulp-postcss": "^6.2.0",
+    "gulp-postcss": "^7.0.0",
     "gulp-rename": "^1.2.2",
-    "gulp-sourcemaps": "^2.1.1",
-    "gulp-uglify": "^2.0.0",
-    "gulp-util": "^3.0.7",
-    "normalize.css": "^5.0.0"
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8",
+    "normalize.css": "^7.0.0"
   }
 }

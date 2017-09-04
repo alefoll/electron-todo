@@ -12,7 +12,6 @@ module.exports = (done) => {
         icon: 'build/assets/logo.ico',
         ignore: [
             '.editorconfig',
-            '.eslintrc.json',
             '.gitignore',
             'GulpFile.js',
             'README.md',

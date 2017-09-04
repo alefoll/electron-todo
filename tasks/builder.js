@@ -18,7 +18,6 @@ module.exports = (done) => {
             files: [
                 "**/*",
                 "!.editorconfig",
-                "!.eslintrc.json",
                 "!.gitignore",
                 "!GulpFile.js",
                 "!README.md",
