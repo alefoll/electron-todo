@@ -50,7 +50,7 @@
                         const newIssues = [];
 
                         for (let issue of issues) {
-                            if (issue.dueDate !== undefined) {
+                            if (issue.dueDate !== undefined && parseInt(issue.dueDate) > (+new Date())) {
                                 let task = $scope.todos.find((task) => {
                                     return task.task === (issue.id + ' - ' + issue.title);
                                 });
