@@ -59,7 +59,7 @@
                                     const m = moment(parseInt(issue.dueDate));
 
                                     task = {
-                                        created : new Date(parseInt(issue.created)),
+                                        created : new Date(),
                                         task    : (issue.id + ' - ' + issue.title),
                                         date    : m.toDate()
                                     }
