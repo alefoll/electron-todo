@@ -26,8 +26,8 @@
                 }
 
                 filtered.sort((a, b) => {
-                    return (a.date.getTime() === b.date.getTime()) ? a.task.toLowerCase() > b.task.toLowerCase() : a.date.getTime() > b.date.getTime();
-                })
+                    return (a.date.getTime() === b.date.getTime()) ? a.task.toLowerCase() - b.task.toLowerCase() : a.date.getTime() - b.date.getTime();
+                });
 
                 return filtered;
             }
